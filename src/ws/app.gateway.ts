@@ -34,6 +34,11 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
         console.log('ping:', data);
         client.emit('pong', { ok: true, echo: data });
     }
+    @SubscribeMessage('internal:initialized')
+    onInitiaized(@MessageBody() data: string, @ConnectedSocket() client: Socket) {
+        console.log('✅ onInitialized ::', data);
+        // client.emit('pong', { ok: true, echo: data });
+    }
 
     // server broadcast example
     broadcast(event: string, payload: any) {
